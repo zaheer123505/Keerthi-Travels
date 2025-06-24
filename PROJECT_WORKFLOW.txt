@@ -1,0 +1,119 @@
+=========================================
+ KEERTHI TRAVELS - FRONTEND WORKFLOW
+=========================================
+
+SUMMARY
+-----------------------------------------
+This document outlines the current state and user workflow of the Keerthi Travels frontend application. The entire user interface has been built using Next.js, TypeScript, and Tailwind CSS. The site is fully responsive, interactive, and populated with high-quality dummy data to simulate a complete user experience. The application is now ready for backend integration.
+
+-----------------------------------------
+A TYPICAL USER JOURNEY
+-----------------------------------------
+Let's follow a potential customer, "Priya," as she explores the website to book a trip.
+
++-----------------------+
+|                       |
+|   1. LANDING PAGE     |
+| (Homepage: /)         |
+|                       |
++-----------------------+
+           |
+           v (Priya sees the beautiful hero slideshow)
+           |
++-----------------------+
+|                       |
+| 2. BROWSING PACKAGES  |
+| (Scrolls down)        |
+|                       |
++-----------------------+
+           |
+           v (She sees the interactive card slider for popular tours)
+           |
++-----------------------+
+|                       |
+| 3. VIEWING ALL TOURS  |
+| (Clicks "Packages" Nav) |
+|      (/packages)      |
++-----------------------+
+           |
+           v (Sees the filter sidebar and a full grid of tours)
+           |
++-----------------------+
+|                       |
+|  4. EXPLORING A TOUR  |
+| (Clicks on a Package) |
+| (/packages/1)         |
++-----------------------+
+           |
+           v (Sees the detailed page with gallery, FAQs, and reviews)
+           |
++-----------------------+
+|                       |
+|    5. INQUIRING       |
+| (Clicks "Book Now")   |
+|      (/booking)       |
++-----------------------+
+           |
+           v (Fills out the multi-step booking form)
+           |
++-----------------------+
+|                       |
+|  6. SUBMITS INQUIRY   |
+| (Receives confirmation)|
+|                       |
++-----------------------+
+
+
+DETAILED WORKFLOW
+-----------------------------------------
+
+1.  **Homepage Arrival (The "Wow" Factor):**
+    *   Priya lands on the homepage (`/`). She is immediately greeted by a large, auto-playing **slideshow** showcasing stunning images of Kashi, Kedarnath, etc.
+    *   As she scrolls, the "Most Popular Journeys" section **fades into view**. This section is an interactive **card slider** that she can use to browse the top 4-5 packages.
+    *   Further scrolling reveals animated sections for "Why Travel With Us?" and "What Our Guests Say," building trust and credibility.
+
+2.  **Exploring All Packages (The "Shopping" Experience):**
+    *   Priya wants to see all options, so she clicks the "Packages" link in the header.
+    *   She is taken to the `/packages` page. On the left, she sees a sophisticated **filter sidebar** allowing her to filter by price range and tour type. On the right, she sees a clean grid of all available tour packages.
+    *   The cards are all of a **uniform height**, and hovering over them changes the cursor and shows subtle animations, indicating they are clickable.
+
+3.  **Diving into a Specific Tour (The "Details" Phase):**
+    *   The "Himalayan Char Dham Yatra" catches her eye. She clicks on the card.
+    *   She is navigated to the tour's detail page (`/packages/3`). Here, she finds:
+        *   A large, high-quality hero image of the tour.
+        *   A professional, two-column layout.
+        *   An interactive **image gallery** she can click through.
+        *   A detailed "About This Journey" section and a list of "What's Included."
+        *   An **FAQ accordion** to answer common questions.
+        *   A **Reviews** section with star ratings from other travelers.
+
+4.  **Making an Inquiry (The "Action" Step):**
+    *   Convinced, Priya clicks the "Book Now" or "Request Callback" button.
+    *   She is taken to the `/booking` page.
+    *   Here, she is guided through a **multi-step form**:
+        *   Step 1: Select the package and date.
+        *   Step 2: Enter her personal details (name, email/phone).
+        *   Step 3: Review all the information.
+    *   She clicks "Submit Inquiry." A confirmation alert appears.
+
+-----------------------------------------
+THE ADMIN EXPERIENCE (UI-ONLY)
+-----------------------------------------
+
+1.  **Admin Access:** An admin navigates directly to `/admin/dashboard`.
+2.  **Dashboard View:** They see a professional dashboard with a fixed sidebar on the left and a top bar, which is fully responsive for mobile.
+3.  **Tour Management:** Clicking "Manage Tours" takes them to a page with:
+    *   A table of all tours (on desktop) or a list of cards (on mobile).
+    *   Buttons to **Edit** or **Delete** existing tours.
+    *   An **"Add New Tour"** button.
+4.  **CRUD Forms:** Clicking "Add New" or "Edit" takes them to a dedicated form, which includes a user-friendly **file uploader with an image preview**.
+
+-----------------------------------------
+NEXT STEPS: BACKEND INTEGRATION
+-----------------------------------------
+The entire frontend is complete. The next phase is to build the backend API and connect it to this UI. This involves:
+1.  Setting up a Python/FastAPI backend project.
+2.  Connecting to a MongoDB database.
+3.  Building API endpoints for tours, user authentication (login/register), and bookings.
+4.  Replacing all the dummy data in the frontend with live API calls.
+5.  Implementing the logic for the forms to submit data to the backend.

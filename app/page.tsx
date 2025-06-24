@@ -1,103 +1,112 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Hero from "./components/Hero";
+import PackageCard from "./components/PackageCard";
+import Section from "./components/Section";
+import FadeIn from "./components/FadeIn";
+import TestimonialCard from "./components/TestimonialCard";
+import { tourPackages } from "@/data/tours";
+import Link from "next/link";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperCore } from 'swiper';
+import { useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+const testimonials = [
+  { quote: "An absolutely life-changing journey. Keerthi Travels handled everything perfectly. The Ganga Aarti was a highlight I'll never forget.", name: "Anjali Mehta", title: "Pilgrim from Mumbai", image: "/gallery/avatar-1.jpg" },
+  { quote: "I was hesitant about traveling alone, but the group was wonderful and the guides made me feel safe and cared for. Highly recommended.", name: "Ravi Kumar", title: "Solo Traveler", image: "/gallery/avatar-2.jpg" },
+  { quote: "Our family had the most memorable time. The 10-day tour was perfectly paced for both the elders and the kids. Thank you, Keerthi Travels!", name: "The Sharma Family", title: "Family Pilgrimage", image: "/gallery/avatar-3.jpg" },
+];
+
+export default function HomePage() {
+  const swiperRef = useRef<SwiperCore | null>(null);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main>
+      <Hero />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* --- REDESIGNED FEATURED PACKAGES SLIDER --- */}
+      <FadeIn>
+        <Section
+          heading="Our Most Popular Journeys"
+          subHeading="Embark on a spiritual adventure with our expertly curated packages that blend devotion, comfort, and discovery."
+          className="bg-gray-50"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <div className="relative">
+            <Swiper
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              modules={[Pagination]}
+              spaceBetween={30}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 },
+              }}
+              className="!pb-16"
+            >
+              {tourPackages.map((tour) => (
+                <SwiperSlide key={tour.id}>
+                  <PackageCard tour={tour} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Custom Navigation Buttons */}
+            <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between z-10 px-[-20px] sm:px-[-24px]">
+              <button
+                onClick={() => swiperRef.current?.slidePrev()}
+                className="w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center text-blue-900 hover:bg-gray-100 transition-colors -ml-5 sm:-ml-6"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                onClick={() => swiperRef.current?.slideNext()}
+                className="w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center text-blue-900 hover:bg-gray-100 transition-colors -mr-5 sm:-mr-6"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+          </div>
+        </Section>
+      </FadeIn>
+      
+      <FadeIn>
+        <Section heading="Why Travel With Us?" className="bg-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="p-6">
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Expert Guides</h3>
+                <p className="text-gray-600">Our local guides are knowledgeable, passionate, and dedicated to making your journey memorable.</p>
+            </div>
+            <div className="p-6">
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Curated Itineraries</h3>
+                <p className="text-gray-600">We design our tours to be spiritually enriching, comfortable, and comprehensive.</p>
+            </div>
+            <div className="p_6">
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Peace of Mind</h3>
+                <p className="text-gray-600">From booking to your return, we handle all the details so you can focus on your journey.</p>
+            </div>
+          </div>
+        </Section>
+      </FadeIn>
+      
+      <FadeIn>
+        <Section heading="What Our Guests Say" subHeading="Hear from fellow pilgrims who have journeyed with us." className="bg-gray-50">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {testimonials.map((t, i) => (
+                    <TestimonialCard key={i} testimonial={t} />
+                ))}
+            </div>
+        </Section>
+      </FadeIn>
+    </main>
   );
 }
